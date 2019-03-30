@@ -1,0 +1,22 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+service: cloud-datastore-admin
+
+libraries:
+- name: webapp2
+  version: "latest"
+
+handlers:
+- url: /cloud-datastore-export
+  script: main.app
+  login: admin
+- url: /_ah/push-handlers/.*
+  script: main.app
+  login: admin
+- url: /.*
+  script: main.app
+
+env_variables:
+  TARGET_BUCKET_NAME: "my-bucket"
+  BACKUP_PREFIX: "backup-prefix"
